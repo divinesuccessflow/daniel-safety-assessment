@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safety Culture Maturity Assessment | Daniel Meléndez Aviation Safety</title>
+<meta name="description" content="Evaluate your organization's safety culture maturity across 5 critical dimensions. Free assessment by Daniel Meléndez — 45+ years aviation safety expertise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--navy-deep:#001a33;--navy:#003366;--navy-light:#004d99;
+--sky:#4da6ff;--sky-light:#b3d9ff;--sky-pale:#e6f2ff;
+--gold:#d4930a;--gold-light:#f5c842;--gold-pale:#fff4d6;
+--white:#ffffff;--gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;
+--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;
+--gray-800:#1e293b;--gray-900:#0f172a;
+--radius:12px;--radius-lg:20px;
+--shadow:0 4px 24px rgba(0,26,51,.12);--shadow-lg:0 12px 48px rgba(0,26,51,.18);
+--transition:all .3s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--gray-50);color:var(--gray-800);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;color:var(--navy-deep);line-height:1.2}
+
+/* Aviation Background Pattern */
+.aviation-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 50%,#001f3f 100%)}
+.aviation-bg::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 800px 600px at 20% 30%,rgba(77,166,255,.06) 0%,transparent 70%),
+  radial-gradient(ellipse 600px 400px at 80% 70%,rgba(212,147,10,.04) 0%,transparent 70%);
+}
+.aviation-bg .grid-lines{position:absolute;inset:0;background-image:
+  linear-gradient(rgba(77,166,255,.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(77,166,255,.03) 1px,transparent 1px);
+  background-size:60px 60px}
+.aviation-bg .horizon{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(0,26,51,.5),transparent)}
+
+/* Container */
+.container{max-width:820px;margin:0 auto;padding:20px;position:relative;z-index:1}
+
+/* Header */
+.site-header{text-align:center;padding:48px 24px 32px;animation:fadeDown .8s ease}
+.credential-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,147,10,.12);border:1px solid rgba(212,147,10,.25);border-radius:40px;padding:8px 20px;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-light);margin-bottom:20px}
+.credential-badge .dot{width:4px;height:4px;border-radius:50%;background:var(--gold-light)}
+.site-header h1{font-size:clamp(28px,5vw,44px);color:var(--white);margin-bottom:12px;font-weight:800}
+.site-header h1 span{color:var(--gold-light)}
+.site-header p{color:var(--sky-light);font-size:17px;max-width:600px;margin:0 auto;font-weight:300}
+
+/* Card */
+.card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;margin-bottom:32px;animation:fadeUp .6s ease}
+
+/* Progress Bar */
+.progress-wrapper{background:var(--gray-100);padding:20px 28px 16px;border-bottom:1px solid var(--gray-200)}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13px;font-weight:600;color:var(--gray-500)}
+.progress-meta .section-name{color:var(--navy)}
+.progress-track{height:6px;background:var(--gray-200);border-radius:6px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--navy),var(--sky));border-radius:6px;transition:width .5s cubic-bezier(.4,0,.2,1);position:relative}
+.progress-fill::after{content:'';position:absolute;right:0;top:-2px;width:10px;height:10px;background:var(--sky);border-radius:50%;box-shadow:0 0 8px var(--sky)}
+
+/* Sections */
+.section{padding:32px 28px;display:none}
+.section.active{display:block;animation:fadeIn .4s ease}
+.section-header{margin-bottom:28px}
+.section-header .dim-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.section-header h2{font-size:24px;margin-bottom:6px}
+.section-header p{color:var(--gray-500);font-size:14px}
+
+/* Questions */
+.question{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--gray-100)}
+.question:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.question label{display:block;font-size:15px;font-weight:500;color:var(--gray-800);margin-bottom:14px;line-height:1.5}
+.question label .q-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--navy);color:var(--white);font-size:11px;font-weight:700;margin-right:8px;vertical-align:middle;flex-shrink:0}
+.likert{display:flex;gap:6px}
+.likert .opt{flex:1;position:relative}
+.likert input{position:absolute;opacity:0;pointer-events:none}
+.likert .lbl{display:flex;flex-direction:column;align-items:center;padding:10px 4px;border:2px solid var(--gray-200);border-radius:var(--radius);cursor:pointer;transition:var(--transition);text-align:center;min-height:68px;justify-content:center}
+.likert .lbl:hover{border-color:var(--sky);background:var(--sky-pale)}
+.likert input:checked+.lbl{border-color:var(--navy);background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--white);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,51,102,.3)}
+.likert .lbl .val{font-size:18px;font-weight:700;line-height:1}
+.likert .lbl .txt{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:4px;opacity:.8}
+
+/* Navigation */
+.nav-row{display:flex;justify-content:space-between;padding:0 28px 28px;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border:none;border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:var(--transition)}
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--white);box-shadow:0 4px 16px rgba(0,51,102,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,51,102,.4)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-secondary{background:var(--gray-100);color:var(--gray-600)}
+.btn-secondary:hover{background:var(--gray-200)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#e6a810);color:var(--white);box-shadow:0 4px 16px rgba(212,147,10,.3);font-size:16px;padding:16px 36px}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,147,10,.4)}
+
+/* Lead Form */
+.lead-form{padding:36px 28px}
+.lead-form h2{text-align:center;margin-bottom:8px;font-size:26px}
+.lead-form .sub{text-align:center;color:var(--gray-500);margin-bottom:28px;font-size:14px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:13px;font-weight:600;color:var(--gray-600);margin-bottom:6px}
+.form-group label .req{color:#e53e3e}
+.form-group input,.form-group select{padding:12px 16px;border:2px solid var(--gray-200);border-radius:var(--radius);font-size:15px;font-family:'Inter',sans-serif;transition:var(--transition);background:var(--white)}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,.1)}
+.form-group input.error,.form-group select.error{border-color:#e53e3e}
+.form-note{text-align:center;font-size:12px;color:var(--gray-400);margin-top:16px}
+.form-note a{color:var(--navy-light)}
+
+/* Loading */
+.loading-screen{display:none;padding:80px 28px;text-align:center}
+.loading-screen.active{display:block}
+.loading-spinner{width:80px;height:80px;margin:0 auto 24px;position:relative}
+.loading-spinner .ring{position:absolute;inset:0;border:3px solid var(--gray-200);border-top-color:var(--navy);border-radius:50%;animation:spin 1s linear infinite}
+.loading-spinner .ring:nth-child(2){inset:8px;border-top-color:var(--sky);animation-duration:1.5s;animation-direction:reverse}
+.loading-spinner .ring:nth-child(3){inset:16px;border-top-color:var(--gold);animation-duration:2s}
+.loading-spinner .plane{position:absolute;inset:22px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.loading-screen h3{font-size:22px;margin-bottom:8px}
+.loading-screen p{color:var(--gray-500);font-size:14px}
+.loading-steps{margin-top:20px;text-align:left;max-width:300px;margin-left:auto;margin-right:auto}
+.loading-steps .step{padding:8px 0;font-size:13px;color:var(--gray-400);transition:var(--transition)}
+.loading-steps .step.done{color:var(--navy)}
+.loading-steps .step::before{content:'○ ';font-weight:700}
+.loading-steps .step.done::before{content:'● '}
+
+/* Results */
+.results{display:none;animation:fadeIn .6s ease}
+.results.active{display:block}
+.results-header{background:linear-gradient(135deg,var(--navy-deep),var(--navy));padding:40px 28px;text-align:center;color:var(--white)}
+.results-header .level-badge{display:inline-block;background:linear-gradient(135deg,var(--gold),#e6a810);color:var(--navy-deep);padding:8px 24px;border-radius:40px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.results-header h2{font-size:32px;color:var(--white);margin-bottom:8px}
+.results-header .score-big{font-size:64px;font-weight:800;font-family:'Playfair Display',serif;color:var(--gold-light);line-height:1}
+.results-header .score-max{font-size:24px;color:var(--sky-light);font-weight:300}
+.results-header .level-desc{color:var(--sky-light);font-size:15px;max-width:500px;margin:12px auto 0;font-weight:300}
+
+/* Gauge */
+.gauge-container{padding:32px 28px;display:flex;justify-content:center}
+.gauge{width:100%;max-width:500px}
+.gauge svg{width:100%}
+
+/* Radar */
+.radar-section{padding:0 28px 32px}
+.radar-section h3{text-align:center;margin-bottom:20px;font-size:20px}
+.radar-wrap{display:flex;justify-content:center}
+.radar-wrap canvas{max-width:400px;width:100%}
+
+/* Dimension Breakdown */
+.dim-breakdown{padding:0 28px 32px}
+.dim-breakdown h3{margin-bottom:16px;font-size:20px}
+.dim-card{display:flex;align-items:center;gap:16px;padding:16px;border-radius:var(--radius);border:1px solid var(--gray-200);margin-bottom:10px;transition:var(--transition)}
+.dim-card:hover{border-color:var(--sky);box-shadow:0 2px 12px rgba(0,51,102,.06)}
+.dim-card .dim-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.dim-card .dim-info{flex:1;min-width:0}
+.dim-card .dim-name{font-weight:600;font-size:14px;color:var(--navy)}
+.dim-card .dim-bar{height:6px;background:var(--gray-200);border-radius:6px;margin-top:6px;overflow:hidden}
+.dim-card .dim-bar-fill{height:100%;border-radius:6px;transition:width 1s ease}
+.dim-card .dim-score{font-size:20px;font-weight:700;color:var(--navy);flex-shrink:0}
+
+/* Recommendations */
+.recs{padding:0 28px 32px}
+.recs h3{margin-bottom:16px;font-size:20px}
+.rec-card{padding:20px;border-radius:var(--radius);border-left:4px solid var(--gold);background:var(--gold-pale);margin-bottom:12px}
+.rec-card .rec-dim{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:4px}
+.rec-card .rec-title{font-weight:600;font-size:15px;color:var(--navy-deep);margin-bottom:4px}
+.rec-card .rec-text{font-size:14px;color:var(--gray-600);line-height:1.6}
+
+/* CTA */
+.cta-section{padding:36px 28px;text-align:center;background:linear-gradient(135deg,var(--navy-deep),var(--navy));border-radius:0 0 var(--radius-lg) var(--radius-lg)}
+.cta-section h3{color:var(--white);font-size:24px;margin-bottom:8px}
+.cta-section p{color:var(--sky-light);font-size:14px;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-section .daniel-info{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:24px}
+.cta-section .daniel-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#e6a810);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:var(--navy-deep);font-family:'Playfair Display',serif}
+.cta-section .daniel-details{text-align:left}
+.cta-section .daniel-name{color:var(--white);font-weight:700;font-size:18px;font-family:'Playfair Display',serif}
+.cta-section .daniel-title{color:var(--sky-light);font-size:13px}
+
+/* Footer */
+.site-footer{text-align:center;padding:24px;color:rgba(255,255,255,.4);font-size:12px}
+
+/* Intro */
+.intro-content{padding:36px 28px}
+.intro-content h2{font-size:26px;margin-bottom:12px}
+.intro-content>p{color:var(--gray-500);margin-bottom:24px;font-size:15px}
+.dim-preview{display:grid;gap:10px;margin-bottom:28px}
+.dim-preview .dp{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--gray-50);border-radius:var(--radius);border:1px solid var(--gray-100)}
+.dim-preview .dp .dp-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.dim-preview .dp .dp-name{font-weight:600;font-size:14px;color:var(--navy)}
+.dim-preview .dp .dp-desc{font-size:12px;color:var(--gray-500)}
+.intro-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.intro-stats .stat{text-align:center;padding:16px;background:linear-gradient(135deg,var(--navy-deep),var(--navy));border-radius:var(--radius);color:var(--white)}
+.intro-stats .stat .num{font-size:28px;font-weight:800;font-family:'Playfair Display',serif;color:var(--gold-light)}
+.intro-stats .stat .lbl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--sky-light);margin-top:2px}
+.start-center{text-align:center}
+
+/* Print */
+@media print{
+  .aviation-bg,.site-header,.nav-row,.cta-section,.site-footer,.progress-wrapper{display:none!important}
+  .card{box-shadow:none;border:1px solid #ddd}
+  .results{display:block!important}
+  body{background:#fff}
+}
+
+/* Mobile */
+@media(max-width:640px){
+  .container{padding:12px}
+  .section,.lead-form,.intro-content{padding:24px 20px}
+  .form-grid{grid-template-columns:1fr}
+  .likert{flex-wrap:wrap}
+  .likert .opt{flex:0 0 calc(20% - 5px)}
+  .likert .lbl{min-height:56px;padding:8px 2px}
+  .likert .lbl .val{font-size:15px}
+  .likert .lbl .txt{font-size:7px}
+  .intro-stats{grid-template-columns:1fr}
+  .results-header .score-big{font-size:48px}
+  .nav-row{padding:0 20px 20px}
+  .dim-breakdown,.recs,.radar-section{padding:0 20px 24px}
+}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div class="aviation-bg"><div class="grid-lines"></div><div class="horizon"></div></div>
+
+<div class="container">
+  <header class="site-header">
+    <div class="credential-badge">
+      <span>45+ Years</span><span class="dot"></span><span>Fighter Pilot</span><span class="dot"></span><span>Aviation Safety Expert</span>
+    </div>
+    <h1>Safety Culture <span>Maturity Assessment</span></h1>
+    <p>Evaluate your organization's safety culture across 5 critical dimensions with this expert-developed diagnostic tool.</p>
+  </header>
+
+  <div class="card" id="mainCard">
+    <!-- Progress -->
+    <div class="progress-wrapper" id="progressWrapper" style="display:none">
+      <div class="progress-meta">
+        <span class="section-name" id="sectionName">Leadership Commitment</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+
+    <!-- Intro -->
+    <div class="section active" id="introSection">
+      <div class="intro-content">
+        <h2>How Mature Is Your Safety Culture?</h2>
+        <p>This complimentary assessment evaluates your organization across the 5 pillars of safety culture maturity — based on the framework developed through 45+ years of aviation safety expertise, from fighter cockpits to boardrooms.</p>
+        <div class="intro-stats">
+          <div class="stat"><div class="num">24</div><div class="lbl">Questions</div></div>
+          <div class="stat"><div class="num">5</div><div class="lbl">Dimensions</div></div>
+          <div class="stat"><div class="num">8</div><div class="lbl">Minutes</div></div>
+        </div>
+        <div class="dim-preview">
+          <div class="dp"><div class="dp-icon" style="background:#e6f2ff;color:var(--navy)">🎯</div><div><div class="dp-name">Leadership Commitment</div><div class="dp-desc">Do leaders walk the talk on safety?</div></div></div>
+          <div class="dp"><div class="dp-icon" style="background:#fff4d6;color:var(--gold)">📢</div><div><div class="dp-name">Reporting Culture</div><div class="dp-desc">Are people comfortable reporting issues?</div></div></div>
+          <div class="dp"><div class="dp-icon" style="background:#e8f5e9;color:#2e7d32">📚</div><div><div class="dp-name">Learning Culture</div><div class="dp-desc">Does the organization learn from incidents?</div></div></div>
+          <div class="dp"><div class="dp-icon" style="background:#fce4ec;color:#c62828">⚖️</div><div><div class="dp-name">Just Culture</div><div class="dp-desc">Fair treatment when things go wrong?</div></div></div>
+          <div class="dp"><div class="dp-icon" style="background:#f3e5f5;color:#6a1b9a">🔮</div><div><div class="dp-name">Proactive Culture</div><div class="dp-desc">Anticipate risks before incidents?</div></div></div>
+        </div>
+        <div class="start-center">
+          <button class="btn btn-primary" onclick="startAssessment()">Begin Assessment →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question sections injected by JS -->
+    <div id="questionsContainer"></div>
+
+    <!-- Lead Form -->
+    <div class="section" id="leadSection">
+      <div class="lead-form">
+        <h2>Almost There — See Your Results</h2>
+        <p class="sub">Enter your details to receive your personalized Safety Culture Maturity Report.</p>
+        <form id="leadForm" action="https://formsubmit.co/divinesuccessflow@gmail.com" method="POST" target="_blank">
+          <input type="hidden" name="_subject" value="New Safety Culture Assessment Lead">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" id="formNext">
+          <input type="hidden" name="assessment_scores" id="hiddenScores">
+          <div class="form-grid">
+            <div class="form-group"><label>Full Name <span class="req">*</span></label><input type="text" name="name" id="fName" required placeholder="John Smith"></div>
+            <div class="form-group"><label>Work Email <span class="req">*</span></label><input type="email" name="email" id="fEmail" required placeholder="john@airline.com"></div>
+            <div class="form-group"><label>Company Name <span class="req">*</span></label><input type="text" name="company" id="fCompany" required placeholder="Acme Airlines"></div>
+            <div class="form-group"><label>Job Title <span class="req">*</span></label><input type="text" name="title" id="fTitle" required placeholder="VP Safety"></div>
+            <div class="form-group"><label>Country <span class="req">*</span></label>
+              <select name="country" id="fCountry" required>
+                <option value="">Select country</option>
+                <option value="US">United States</option>
+                <option value="ES">Spain</option>
+                <option value="CO">Colombia</option>
+                <option value="BR">Brazil</option>
+                <option value="MX">Mexico</option>
+                <option value="CA">Canada</option>
+                <option value="UK">United Kingdom</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Phone <span style="color:var(--gray-400)">(optional)</span></label><input type="tel" name="phone" id="fPhone" placeholder="+1 555 123 4567"></div>
+            <div class="form-group full" style="text-align:center;padding-top:8px">
+              <button type="submit" class="btn btn-gold" id="submitBtn">View My Results →</button>
+            </div>
+          </div>
+          <p class="form-note">🔒 Your information is confidential and will never be shared with third parties.</p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-spinner">
+        <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+        <div class="plane">✈</div>
+      </div>
+      <h3>Analyzing Your Safety Culture</h3>
+      <p>Calculating maturity scores across all 5 dimensions…</p>
+      <div class="loading-steps">
+        <div class="step" id="ls1">Evaluating Leadership Commitment</div>
+        <div class="step" id="ls2">Analyzing Reporting Culture</div>
+        <div class="step" id="ls3">Assessing Learning Practices</div>
+        <div class="step" id="ls4">Reviewing Just Culture Indicators</div>
+        <div class="step" id="ls5">Measuring Proactive Capabilities</div>
+        <div class="step" id="ls6">Generating Recommendations</div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results" id="resultsSection">
+      <div class="results-header">
+        <div class="level-badge" id="levelBadge">Level 3: Calculative</div>
+        <h2>Your Safety Culture Maturity</h2>
+        <div class="score-big" id="scoreBig">68</div>
+        <div class="score-max">/ 100</div>
+        <p class="level-desc" id="levelDesc"></p>
+      </div>
+      <div class="gauge-container">
+        <div class="gauge" id="gaugeContainer"></div>
+      </div>
+      <div class="radar-section">
+        <h3>Dimension Radar</h3>
+        <div class="radar-wrap"><canvas id="radarCanvas" width="400" height="400"></canvas></div>
+      </div>
+      <div class="dim-breakdown">
+        <h3>Dimension Scores</h3>
+        <div id="dimCards"></div>
+      </div>
+      <div class="recs">
+        <h3>Your Top 3 Recommendations</h3>
+        <div id="recCards"></div>
+      </div>
+      <div class="cta-section">
+        <div class="daniel-info">
+          <div class="daniel-avatar">DM</div>
+          <div class="daniel-details">
+            <div class="daniel-name">Daniel Meléndez</div>
+            <div class="daniel-title">Aviation Safety Consultant • Fighter Pilot • 45+ Years Experience</div>
+          </div>
+        </div>
+        <h3>Ready to Elevate Your Safety Culture?</h3>
+        <p>Book a complimentary 30-minute consultation to discuss your results and discover how to advance to the next maturity level.</p>
+        <a href="https://calendly.com" target="_blank" class="btn btn-gold">Book Free Consultation →</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">© 2026 Daniel Meléndez Aviation Safety Consulting. All rights reserved.</footer>
+</div>
+
+<script>
+// ==================== DATA ====================
+const dimensions = [
+  {id:'leadership',name:'Leadership Commitment',icon:'🎯',color:'#003366',bg:'#e6f2ff',
+   questions:[
+    'Senior leaders consistently communicate that safety is the organization\'s top priority.',
+    'Leaders allocate adequate resources (budget, staff, time) to safety programs.',
+    'Management actively participates in safety meetings and walk-arounds.',
+    'Safety performance metrics are reviewed at the board or executive level.',
+    'Leaders personally model safe behaviors and hold themselves accountable.'
+   ]},
+  {id:'reporting',name:'Reporting Culture',icon:'📢',color:'#d4930a',bg:'#fff4d6',
+   questions:[
+    'Employees feel safe reporting safety concerns without fear of retaliation.',
+    'There is a confidential and accessible reporting system for hazards and near-misses.',
+    'Near-miss reports are actively encouraged and recognized by management.',
+    'Reported issues receive timely feedback and visible corrective actions.',
+    'The volume of voluntary safety reports has been increasing over time.'
+   ]},
+  {id:'learning',name:'Learning Culture',icon:'📚',color:'#2e7d32',bg:'#e8f5e9',
+   questions:[
+    'Investigation findings lead to systemic changes, not just individual blame.',
+    'Lessons learned are effectively shared across departments and teams.',
+    'The organization conducts regular safety training beyond regulatory minimums.',
+    'External incidents and industry best practices are studied and incorporated.',
+    'There is a formal process for tracking and verifying corrective action implementation.'
+   ]},
+  {id:'just',name:'Just Culture',icon:'⚖️',color:'#c62828',bg:'#fce4ec',
+   questions:[
+    'There is a clear, published policy defining the line between acceptable and unacceptable behavior.',
+    'Honest mistakes are treated as learning opportunities, not grounds for punishment.',
+    'Disciplinary actions are consistent and fair regardless of the outcome severity.',
+    'Employees trust that the organization will treat them fairly after an incident.',
+    'There is an appeals process available for those who disagree with investigation outcomes.'
+   ]},
+  {id:'proactive',name:'Proactive Culture',icon:'🔮',color:'#6a1b9a',bg:'#f3e5f5',
+   questions:[
+    'The organization routinely identifies and mitigates risks before incidents occur.',
+    'Safety data and trends are analyzed proactively to predict potential hazards.',
+    'Regular safety audits and assessments go beyond compliance checklists.',
+    'Front-line employees are actively involved in hazard identification programs.'
+   ]}
+];
+
+const levels = [
+  {name:'Pathological',min:0,max:39,desc:'Safety is seen primarily as a worker compliance problem. There is minimal leadership engagement and a culture of blame.'},
+  {name:'Reactive',min:40,max:55,desc:'The organization acts on safety mainly after incidents occur. Some systems exist but are compliance-driven.'},
+  {name:'Calculative',min:56,max:70,desc:'Safety management systems are in place and managed by data. Good foundation, but safety is still driven top-down.'},
+  {name:'Proactive',min:71,max:85,desc:'Leadership actively anticipates safety issues. Employees are engaged and the organization goes well beyond compliance.'},
+  {name:'Generative',min:86,max:100,desc:'Safety is fully integrated into how the organization does business. Everyone owns safety at every level.'}
+];
+
+const recommendations = {
+  leadership:[
+    {title:'Establish Executive Safety Sponsorship',text:'Assign a C-suite champion to personally lead quarterly safety reviews and visibly participate in front-line safety walk-arounds.'},
+    {title:'Integrate Safety into Strategic KPIs',text:'Move safety metrics from operational reports into board-level dashboards alongside financial and operational performance.'},
+    {title:'Leadership Safety Communication Plan',text:'Develop a structured cadence where leaders communicate safety priorities, celebrate reporting, and share personal safety commitments.'}
+  ],
+  reporting:[
+    {title:'Implement Confidential Reporting Channels',text:'Deploy an anonymous digital reporting system and publicize protection guarantees for reporters through policy and leadership endorsement.'},
+    {title:'Close the Feedback Loop',text:'Create a visible "You Reported, We Acted" communication program showing what actions resulted from safety reports.'},
+    {title:'Launch a Near-Miss Recognition Program',text:'Reward and publicly recognize quality near-miss reports to shift culture from reactive incident reporting to proactive hazard identification.'}
+  ],
+  learning:[
+    {title:'Establish Cross-Functional Learning Reviews',text:'Create monthly learning sessions where different departments share incident findings, near-miss insights, and industry learnings.'},
+    {title:'Build a Living Lessons-Learned Database',text:'Implement a searchable, continuously updated knowledge base of findings with verified corrective actions and effectiveness reviews.'},
+    {title:'Invest in Advanced Safety Training',text:'Go beyond compliance with scenario-based training, human factors workshops, and simulation exercises for high-risk operations.'}
+  ],
+  just:[
+    {title:'Publish a Just Culture Policy',text:'Develop and widely communicate a clear policy that distinguishes honest errors, at-risk behavior, and reckless conduct with defined organizational responses.'},
+    {title:'Train Leaders in Just Culture Principles',text:'Equip supervisors and managers with frameworks for fair, consistent responses when things go wrong — emphasizing system improvement over individual blame.'},
+    {title:'Establish an Independent Review Board',text:'Create a cross-functional review panel for safety events to ensure fairness, consistency, and an avenue for appeals.'}
+  ],
+  proactive:[
+    {title:'Implement Predictive Safety Analytics',text:'Invest in data analytics capabilities to identify emerging risk trends from operational data, near-misses, and leading indicators before incidents occur.'},
+    {title:'Launch Front-Line Hazard Identification Programs',text:'Empower and train operational personnel to proactively identify and report hazards through regular safety assessments and risk workshops.'},
+    {title:'Conduct Risk-Based Safety Audits',text:'Move beyond compliance checklists to risk-prioritized auditing that focuses on operational exposures and emerging threats.'}
+  ]
+};
+
+// ==================== STATE ====================
+let currentSection = 0; // 0=intro, 1-5=dimensions, 6=lead
+let answers = {};
+const STORAGE_KEY = 'scma_answers';
+
+function loadSaved(){
+  try{const s=localStorage.getItem(STORAGE_KEY);if(s)answers=JSON.parse(s);}catch(e){}
+}
+function saveProgress(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(answers));}catch(e){}
+}
+
+// ==================== BUILD QUESTIONS ====================
+function buildQuestions(){
+  const c=document.getElementById('questionsContainer');
+  dimensions.forEach((dim,di)=>{
+    const sec=document.createElement('div');
+    sec.className='section';sec.id='dim'+di;
+    let html=`<div class="section-header"><div class="dim-label">${dim.icon} Dimension ${di+1} of 5</div><h2>${dim.name}</h2><p>Rate each statement based on your organization's current practices.</p></div>`;
+    dim.questions.forEach((q,qi)=>{
+      const key=dim.id+'_'+qi;
+      const qn=di*5+qi+1; // approx numbering
+      html+=`<div class="question"><label><span class="q-num">${qn}</span>${q}</label><div class="likert">`;
+      const labels=['Strongly Disagree','Disagree','Neutral','Agree','Strongly Agree'];
+      for(let v=1;v<=5;v++){
+        const checked=answers[key]==v?'checked':'';
+        html+=`<div class="opt"><input type="radio" name="${key}" value="${v}" ${checked} onchange="setAnswer('${key}',${v})"><div class="lbl" onclick="this.previousElementSibling.click()"><span class="val">${v}</span><span class="txt">${labels[v-1]}</span></div></div>`;
+      }
+      html+=`</div></div>`;
+    });
+    sec.innerHTML=html;
+    c.appendChild(sec);
+  });
+}
+
+function setAnswer(key,val){
+  answers[key]=val;saveProgress();updateNav();
+}
+
+// ==================== NAVIGATION ====================
+function updateProgress(){
+  const totalQs=dimensions.reduce((s,d)=>s+d.questions.length,0);
+  const answered=Object.keys(answers).length;
+  const pct=Math.round(answered/totalQs*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressPct').textContent=pct+'%';
+  if(currentSection>=1&&currentSection<=5){
+    document.getElementById('sectionName').textContent=dimensions[currentSection-1].name;
+  }
+}
+
+function updateNav(){
+  updateProgress();
+  const nb=document.getElementById('nextBtn');
+  if(!nb)return;
+  if(currentSection>=1&&currentSection<=5){
+    const dim=dimensions[currentSection-1];
+    const all=dim.questions.every((_,qi)=>answers[dim.id+'_'+qi]);
+    nb.disabled=!all;
+  }
+}
+
+function showSection(idx){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('loadingScreen').classList.remove('active');
+  document.getElementById('resultsSection').classList.remove('active');
+  currentSection=idx;
+  const pw=document.getElementById('progressWrapper');
+  if(idx===0){
+    document.getElementById('introSection').classList.add('active');pw.style.display='none';
+  }else if(idx>=1&&idx<=5){
+    document.getElementById('dim'+(idx-1)).classList.add('active');pw.style.display='block';
+  }else if(idx===6){
+    document.getElementById('leadSection').classList.add('active');pw.style.display='none';
+  }
+  renderNav();updateProgress();updateNav();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderNav(){
+  let existing=document.getElementById('navRow');
+  if(existing)existing.remove();
+  if(currentSection===0||currentSection>6)return;
+  const row=document.createElement('div');row.className='nav-row';row.id='navRow';
+  if(currentSection>1){
+    row.innerHTML+=`<button class="btn btn-secondary" onclick="showSection(${currentSection-1})">← Back</button>`;
+  }else{row.innerHTML+=`<div></div>`;}
+  if(currentSection<=5){
+    row.innerHTML+=`<button class="btn btn-primary" id="nextBtn" onclick="showSection(${currentSection+1})" disabled>Next →</button>`;
+  }
+  document.getElementById('mainCard').appendChild(row);
+}
+
+function startAssessment(){showSection(1);}
+
+// ==================== SCORING ====================
+function calcScores(){
+  const totalQs=dimensions.reduce((s,d)=>s+d.questions.length,0);
+  let rawTotal=0;
+  const dimScores=dimensions.map(dim=>{
+    let sum=0;
+    dim.questions.forEach((_,qi)=>{sum+=(answers[dim.id+'_'+qi]||1);});
+    rawTotal+=sum;
+    return{id:dim.id,name:dim.name,icon:dim.icon,color:dim.color,bg:dim.bg,
+      raw:sum,max:dim.questions.length*5,
+      pct:Math.round(sum/(dim.questions.length*5)*100)};
+  });
+  const overallPct=Math.round(rawTotal/(totalQs*5)*100);
+  return{overall:overallPct,dims:dimScores};
+}
+
+function getLevel(score){
+  for(let i=levels.length-1;i>=0;i--){if(score>=levels[i].min)return{...levels[i],num:i+1};}
+  return{...levels[0],num:1};
+}
+
+// ==================== RESULTS ====================
+function showResults(){
+  const scores=calcScores();
+  const level=getLevel(scores.overall);
+
+  document.getElementById('levelBadge').textContent=`Level ${level.num}: ${level.name}`;
+  document.getElementById('scoreBig').textContent=scores.overall;
+  document.getElementById('levelDesc').textContent=level.desc;
+
+  // Gauge SVG
+  drawGauge(scores.overall);
+
+  // Radar
+  drawRadar(scores.dims);
+
+  // Dimension cards
+  const dc=document.getElementById('dimCards');dc.innerHTML='';
+  scores.dims.forEach(d=>{
+    dc.innerHTML+=`<div class="dim-card"><div class="dim-icon" style="background:${d.bg};color:${d.color}">${d.icon}</div><div class="dim-info"><div class="dim-name">${d.name}</div><div class="dim-bar"><div class="dim-bar-fill" style="width:${d.pct}%;background:${d.color}"></div></div></div><div class="dim-score">${d.pct}%</div></div>`;
+  });
+
+  // Recommendations (weakest 3 dims)
+  const sorted=[...scores.dims].sort((a,b)=>a.pct-b.pct);
+  const rc=document.getElementById('recCards');rc.innerHTML='';
+  sorted.slice(0,3).forEach(d=>{
+    const recs=recommendations[d.id];
+    // pick the most relevant rec based on score level
+    const idx=d.pct<40?0:d.pct<65?1:2;
+    const rec=recs[idx];
+    rc.innerHTML+=`<div class="rec-card"><div class="rec-dim">${d.icon} ${d.name} — ${d.pct}%</div><div class="rec-title">${rec.title}</div><div class="rec-text">${rec.text}</div></div>`;
+  });
+
+  // Hidden scores for form
+  document.getElementById('hiddenScores').value=`Overall: ${scores.overall}/100 (${level.name}) | `+scores.dims.map(d=>`${d.name}: ${d.pct}%`).join(' | ');
+
+  document.getElementById('progressWrapper').style.display='none';
+  let nr=document.getElementById('navRow');if(nr)nr.remove();
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('loadingScreen').classList.remove('active');
+  document.getElementById('resultsSection').classList.add('active');
+}
+
+function drawGauge(score){
+  const container=document.getElementById('gaugeContainer');
+  const colors=['#e53e3e','#ed8936','#ecc94b','#48bb78','#38b2ac'];
+  const levelNames=['Pathological','Reactive','Calculative','Proactive','Generative'];
+  const ranges=[0,39,55,70,85,100];
+  // Semi-circle gauge
+  const w=500,h=280;
+  const cx=250,cy=240,r=200;
+  let svg=`<svg viewBox="0 0 ${w} ${h}">`;
+  // Background arc segments
+  for(let i=0;i<5;i++){
+    const a1=Math.PI+Math.PI*(ranges[i]/100);
+    const a2=Math.PI+Math.PI*(ranges[i+1]/100);
+    const x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
+    const x2=cx+r*Math.cos(a2),y2=cy+r*Math.sin(a2);
+    svg+=`<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z" fill="${colors[i]}" opacity="0.15"/>`;
+    // Label
+    const mid=(a1+a2)/2;
+    const lx=cx+(r*0.7)*Math.cos(mid),ly=cy+(r*0.7)*Math.sin(mid);
+    svg+=`<text x="${lx}" y="${ly}" text-anchor="middle" font-size="9" font-family="Inter" fill="${colors[i]}" font-weight="600">${levelNames[i]}</text>`;
+  }
+  // Needle
+  const angle=Math.PI+Math.PI*(score/100);
+  const nx=cx+(r-20)*Math.cos(angle),ny=cy+(r-20)*Math.sin(angle);
+  svg+=`<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="var(--navy-deep)" stroke-width="3" stroke-linecap="round"/>`;
+  svg+=`<circle cx="${cx}" cy="${cy}" r="8" fill="var(--navy-deep)"/>`;
+  svg+=`<circle cx="${cx}" cy="${cy}" r="4" fill="var(--gold)"/>`;
+  svg+=`</svg>`;
+  container.innerHTML=svg;
+}
+
+function drawRadar(dims){
+  const canvas=document.getElementById('radarCanvas');
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=400*dpr;canvas.height=400*dpr;
+  ctx.scale(dpr,dpr);
+  const cx=200,cy=200,r=150;
+  const n=dims.length;
+  const angleStep=2*Math.PI/n;
+  const startAngle=-Math.PI/2;
+
+  // Grid
+  for(let ring=1;ring<=5;ring++){
+    const rr=r*ring/5;
+    ctx.beginPath();
+    for(let i=0;i<=n;i++){
+      const a=startAngle+i*angleStep;
+      const x=cx+rr*Math.cos(a),y=cy+rr*Math.sin(a);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();ctx.strokeStyle='rgba(0,51,102,0.1)';ctx.lineWidth=1;ctx.stroke();
+  }
+  // Spokes
+  for(let i=0;i<n;i++){
+    const a=startAngle+i*angleStep;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    ctx.strokeStyle='rgba(0,51,102,0.1)';ctx.stroke();
+  }
+  // Data
+  ctx.beginPath();
+  dims.forEach((d,i)=>{
+    const a=startAngle+i*angleStep;
+    const dr=r*d.pct/100;
+    const x=cx+dr*Math.cos(a),y=cy+dr*Math.sin(a);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.closePath();
+  ctx.fillStyle='rgba(0,51,102,0.12)';ctx.fill();
+  ctx.strokeStyle='#003366';ctx.lineWidth=2.5;ctx.stroke();
+  // Points + labels
+  dims.forEach((d,i)=>{
+    const a=startAngle+i*angleStep;
+    const dr=r*d.pct/100;
+    const x=cx+dr*Math.cos(a),y=cy+dr*Math.sin(a);
+    ctx.beginPath();ctx.arc(x,y,5,0,2*Math.PI);ctx.fillStyle='#003366';ctx.fill();
+    ctx.beginPath();ctx.arc(x,y,3,0,2*Math.PI);ctx.fillStyle='#fff';ctx.fill();
+    // Label
+    const lx=cx+(r+25)*Math.cos(a),ly=cy+(r+25)*Math.sin(a);
+    ctx.font='600 11px Inter';ctx.fillStyle='#003366';ctx.textAlign='center';ctx.textBaseline='middle';
+    // Split long names
+    const parts=d.name.split(' ');
+    if(parts.length>1){
+      ctx.fillText(parts[0],lx,ly-7);
+      ctx.fillText(parts.slice(1).join(' '),lx,ly+7);
+    }else{ctx.fillText(d.name,lx,ly);}
+    ctx.font='700 10px Inter';ctx.fillStyle=d.color;
+    ctx.fillText(d.pct+'%',lx,ly+(parts.length>1?20:14));
+  });
+}
+
+// ==================== LOADING ANIMATION ====================
+function showLoading(){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('progressWrapper').style.display='none';
+  let nr=document.getElementById('navRow');if(nr)nr.remove();
+  const ls=document.getElementById('loadingScreen');ls.classList.add('active');
+  const steps=['ls1','ls2','ls3','ls4','ls5','ls6'];
+  steps.forEach((id,i)=>{
+    setTimeout(()=>{document.getElementById(id).classList.add('done');},700*(i+1));
+  });
+  setTimeout(showResults,5000);
+}
+
+// ==================== FORM HANDLING ====================
+document.getElementById('leadForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  // Validate
+  const fields=['fName','fEmail','fCompany','fTitle','fCountry'];
+  let valid=true;
+  fields.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el.value.trim()){el.classList.add('error');valid=false;}
+    else{el.classList.remove('error');}
+  });
+  if(!valid)return;
+
+  // Submit form data via fetch to formsubmit
+  const formData=new FormData(this);
+  const scores=calcScores();
+  formData.set('assessment_scores',document.getElementById('hiddenScores').value);
+
+  fetch('https://formsubmit.co/ajax/divinesuccessflow@gmail.com',{
+    method:'POST',body:formData
+  }).catch(()=>{});
+
+  // Show loading regardless
+  showLoading();
+});
+
+// ==================== INIT ====================
+loadSaved();buildQuestions();
+
+// Auto-restore section if partial progress
+const answeredCount=Object.keys(answers).length;
+if(answeredCount>0){
+  // find which dimension they're on
+  let lastDim=0;
+  dimensions.forEach((dim,di)=>{
+    const any=dim.questions.some((_,qi)=>answers[dim.id+'_'+qi]);
+    if(any)lastDim=di+1;
+  });
+  // Don't auto-restore, let them click start
+}
+</script>
+</body>
+</html>
